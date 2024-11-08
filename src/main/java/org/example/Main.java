@@ -26,12 +26,12 @@ public class Main implements BurpExtension {
 
     public static void main(String [] args) {
         if (args.length != 2) {
-            System.out.println("Usage: java -jar file.jar 'dummy parameter value' 'dummy payload'");
+            System.out.println("Usage: ./test.sh 'dummy parameter value' 'dummy payload'");
         } else{
             Test test = new Test(args[0]);
             List<EncodingTree> modified = test.dummyBuildWithPayload(args[1]);
             for (EncodingTree node : modified) {
-                System.out.println("Modified parameter is the following: " + node.getNode().getValue());
+                System.out.println("Modified parameter is the following: \n\r" + node.getNode().getValue());
             }
         }
     }

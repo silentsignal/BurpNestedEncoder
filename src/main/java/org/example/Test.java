@@ -15,6 +15,8 @@ public class Test {
     public List<EncodingTree> dummyBuildWithPayload(String payload){
         List<EncodingTree> encodingTrees = new ArrayList<>();
         root = root.fillTreeRecursively(root, paramValue);
+        System.out.print("Detected structure is the following: \r\n");
+        System.out.println(root.toString());
         List<EncodingTree> leafNodes = root.getLeafNodes();
         for (EncodingTree leafNode : leafNodes) {
             EncodingTree temp = leafNode.updateNode(leafNode.getNode().getValue(), payload);
