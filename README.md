@@ -42,9 +42,4 @@ Create a new class implementing the HandleEncoding interface, then implement the
 
 ## Testing
 
-Testing and debugging an extension with Burp can be a bit tricky, so I've created a test module which can be accessed through a shell script wrapper.
-
-```
-$ chmod +x test.sh
-$ ./test.sh "dummy parameter value" "dummy payload"
-```
+Testing is done using JUnit tests. For a new test create a text file under /test/resources - the first line should be the dummy parameter value, the second should be the dummy payload, the rest should be the expected outputs. After that, create a new test function inside the BurpSimulationTest class according to the implemented test cases. Be careful, the program automatically removes every whitespace and newline break from the actual output, so create the expected output accordingly.
