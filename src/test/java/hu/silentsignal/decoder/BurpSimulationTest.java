@@ -1,9 +1,9 @@
-package org.example;
+package hu.silentsignal.decoder;
 
+import hu.silentsignal.decoder.encodings.EncodingTree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;

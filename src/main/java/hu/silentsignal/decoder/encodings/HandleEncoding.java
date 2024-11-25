@@ -1,4 +1,4 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
 import java.util.List;
 
@@ -13,6 +13,8 @@ public interface HandleEncoding{
     void insertPayload(String key, String value, int n);
     // Sets the base value for the encoding class
     void setValue(String value);
+    // Appends the given string to it's original value
+    void appendValue(String value);
     // Getter for the value field
     String getValue();
     // For more complex structures

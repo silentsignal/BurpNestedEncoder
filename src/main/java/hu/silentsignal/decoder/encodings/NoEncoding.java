@@ -1,6 +1,5 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class NoEncoding implements HandleEncoding{
@@ -10,7 +9,7 @@ public class NoEncoding implements HandleEncoding{
     // Returns false on every call to avoid false-positives
     @Override
     public boolean isApplicable(String value) {
-        return true;
+        return false;
     }
 
     @Override
@@ -26,6 +25,11 @@ public class NoEncoding implements HandleEncoding{
     @Override
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public void appendValue(String value) {
+        this.value += value;
     }
 
     @Override

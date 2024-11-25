@@ -1,4 +1,4 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
 public class KeyValueTuple {
     private final String key;

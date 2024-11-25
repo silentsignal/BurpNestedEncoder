@@ -1,6 +1,5 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
-import java.io.Serializable;
 import java.util.*;
 
 public class B64Encoding implements HandleEncoding{
@@ -29,6 +28,11 @@ public class B64Encoding implements HandleEncoding{
     @Override
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public void appendValue(String value) {
+        this.value += value;
     }
 
     // Returning the decoded values

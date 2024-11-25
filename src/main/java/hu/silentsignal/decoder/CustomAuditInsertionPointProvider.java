@@ -1,4 +1,4 @@
-package org.example;
+package hu.silentsignal.decoder;
 
 import burp.api.montoya.MontoyaApi;
 import burp.api.montoya.http.message.HttpRequestResponse;
@@ -7,6 +7,8 @@ import burp.api.montoya.logging.Logging;
 import burp.api.montoya.scanner.audit.insertionpoint.AuditInsertionPoint;
 import burp.api.montoya.scanner.audit.insertionpoint.AuditInsertionPointProvider;
 import burp.api.montoya.utilities.Utilities;
+import hu.silentsignal.decoder.encodings.EncodingTree;
+
 import java.util.*;
 
 public class CustomAuditInsertionPointProvider implements AuditInsertionPointProvider {
@@ -36,7 +38,8 @@ public class CustomAuditInsertionPointProvider implements AuditInsertionPointPro
             List<EncodingTree> leafNodes = root.getLeafNodes();
             for (EncodingTree leafNode : leafNodes) {
                 // Add the leaf nodes as custom insertion points
-                auditInsertionPoints.add(new CustomInsertionPoint(api, leafNode, httpRequestResponse.request(), parameter));
+                // The default payload inserting method is to replace the leaf nodes value with the payload
+                auditInsertionPoints.add(new CustomInsertionPoint(api, leafNode, httpRequestResponse.request(), parameter, true));
             }
         }
         return auditInsertionPoints;

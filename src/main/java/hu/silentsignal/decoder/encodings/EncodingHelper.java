@@ -1,7 +1,6 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EncodingHelper {
 
