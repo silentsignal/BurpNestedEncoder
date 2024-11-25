@@ -1,6 +1,5 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,10 @@ public class CommaSeparatedEncoding implements HandleEncoding {
     public void setValue(String value) {
         this.value = value.replaceAll(" +", "");
     }
+    @Override
+    public void appendValue(String value) {
+        this.value += value;
+    }
 
     // Encode is not needed for this encoding
     public String encodeValue(String value) {
@@ -35,6 +38,7 @@ public class CommaSeparatedEncoding implements HandleEncoding {
         // Or if it's -1
         if (split.length < n || n == -1){
             System.out.println("Insert position is greater than the elements in the list.");
+
         }else{
             split[n] = value;
         }

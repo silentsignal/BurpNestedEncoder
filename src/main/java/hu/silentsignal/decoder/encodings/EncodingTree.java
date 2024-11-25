@@ -1,12 +1,14 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
-import java.io.Serializable;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 // Tree-like class to store encodings and their parent-child hierarchy
-public class EncodingTree{
+// Implements TreeModel in order to use JTree in the GUI
+public class EncodingTree implements TreeModel {
     private HandleEncoding node;
     private final List<EncodingTree> children;
     private EncodingTree parent;
@@ -98,11 +100,16 @@ public class EncodingTree{
     }
 
     // Recursive function to update the nodes after inserting the payload
-    public EncodingTree updateNode(String previousValue, String value){
+    public EncodingTree updateNode(String previousValue, String value, boolean isFirst, boolean replace){
         // Updating the node's value
         //this.node = encoding;
         EncodingTree ret = new EncodingTree(this);
-        ret.node.setValue(value);
+        if (isFirst && !replace){
+            ret.node.appendValue(value);
+        }else{
+            ret.node.setValue(value);
+        }
+
         // If it has a parent, update it accordingly
         if (hasParent()){
             // Finds the original value in the parent
@@ -113,7 +120,7 @@ public class EncodingTree{
             // Updating the parent
             parentCopy.node.insertPayload(ret.node.getKey(), ret.node.getValue(), elemIndex);
             // Updating the parent
-            ret = parentCopy.updateNode(previousValue, parentCopy.node.getValue());
+            ret = parentCopy.updateNode(previousValue, parentCopy.node.getValue(), false, true);
         }
         return ret;
     }
@@ -171,25 +178,52 @@ public class EncodingTree{
         return currentNode;
     }
 
-    // Pretty printing
-    // Written by @VasiliNovikov Stackoverflow/4965335
-    public String toString() {
-        StringBuilder buffer = new StringBuilder(50);
-        print(buffer, "", "");
-        return buffer.toString();
+    public String toString(){
+        return node.getValue();
     }
 
-    private void print(StringBuilder buffer, String prefix, String childrenPrefix) {
-        buffer.append(prefix);
-        buffer.append(node.getValue());
-        buffer.append('\n');
-        for (Iterator<EncodingTree> it = children.iterator(); it.hasNext();) {
-            EncodingTree next = it.next();
-            if (it.hasNext()) {
-                next.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
-            } else {
-                next.print(buffer, childrenPrefix + "└── ", childrenPrefix + "    ");
-            }
-        }
+    @Override
+    public Object getRoot() {
+        return findRoot(this);
+    }
+
+    @Override
+    public Object getChild(Object o, int i) {
+        EncodingTree tree = (EncodingTree) o;
+        return tree.children.get(i);
+    }
+
+    @Override
+    public int getChildCount(Object o) {
+        EncodingTree tree = (EncodingTree) o;
+        return tree.children.size();
+    }
+
+    @Override
+    public boolean isLeaf(Object o) {
+        EncodingTree tree = (EncodingTree) o;
+        return tree.isLeaf();
+    }
+
+    @Override
+    public void valueForPathChanged(TreePath treePath, Object o) {
+
+    }
+
+    @Override
+    public int getIndexOfChild(Object o, Object o1) {
+        EncodingTree parent = (EncodingTree) o;
+        EncodingTree child = (EncodingTree) o1;
+        return parent.getChildren().indexOf(child);
+    }
+
+    @Override
+    public void addTreeModelListener(TreeModelListener treeModelListener) {
+
+    }
+
+    @Override
+    public void removeTreeModelListener(TreeModelListener treeModelListener) {
+
     }
 }

@@ -1,8 +1,7 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
 import com.google.gson.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +36,13 @@ public class JSONEncoding implements HandleEncoding{
     // Setter for the value field
     @Override
     public void setValue(String value) {
+        this.value = value;
+        gson = new Gson();
+        jsonElement = gson.fromJson(value, JsonElement.class);
+    }
+
+    @Override
+    public void appendValue(String value) {
         this.value = value;
         gson = new Gson();
         jsonElement = gson.fromJson(value, JsonElement.class);
@@ -119,7 +125,7 @@ public class JSONEncoding implements HandleEncoding{
             JsonObject jsonObject = je.getAsJsonObject();
             // Traversing through the object
             for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-                // If it's a pritimive we add the KV pair to our list
+                // If it's a primitive we add the KV pair to our list
                 if (entry.getValue().isJsonPrimitive()) {
                     list.add(new KeyValueTuple(entry.getKey(), entry.getValue().toString().replaceAll("\"", "")));
                 }

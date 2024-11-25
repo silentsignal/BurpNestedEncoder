@@ -1,7 +1,12 @@
-package org.example;
+package hu.silentsignal.decoder;
+
+import hu.silentsignal.decoder.encodings.EncodingTree;
 
 import java.util.ArrayList;
 import java.util.List;
+
+// Class to simulate the behaviour of Burp
+// Used for tests
 
 public class BurpSimulation {
     private String paramValue;
@@ -20,7 +25,7 @@ public class BurpSimulation {
         root = root.fillTreeRecursively(root, paramValue);
         List<EncodingTree> leafNodes = root.getLeafNodes();
         for (EncodingTree leafNode : leafNodes) {
-            EncodingTree temp = leafNode.updateNode(leafNode.getNode().getValue(), payload);
+            EncodingTree temp = leafNode.updateNode(leafNode.getNode().getValue(), payload, true, true);
             temp = temp.findRoot(temp);
             encodingTrees.add(temp);
         }

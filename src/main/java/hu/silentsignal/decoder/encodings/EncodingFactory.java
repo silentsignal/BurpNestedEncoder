@@ -1,4 +1,4 @@
-package org.example;
+package hu.silentsignal.decoder.encodings;
 
 import java.io.Serializable;
 
