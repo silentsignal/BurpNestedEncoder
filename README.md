@@ -11,7 +11,7 @@ However it's easy and simple to add new encodings.
 
 ## Usage
 
-Build with Gradle
+Build with Gradle (Java 21 required at minimum):
 
 ```
 $ ./gradlew build
