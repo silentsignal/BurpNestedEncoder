@@ -1,4 +1,4 @@
-# JSON Base64 Provider
+# Burp Nested Encoder 
 
 A modular and customizable insertion point provider extension created for Burp which can detect arbitrary complex nested structures using recursion and a tree-like structure with parent-child hierarchy.
 
@@ -35,6 +35,8 @@ Using the Montoya API a custom AuditInsertionPointProvider class is created whic
 When the tree is built from the initial parameters value, the extension queries all of its leaf nodes, a new CustomInsertionPoint instance is created based on the leaf node, which is then added to our list. 
 
 Inside the buildHttpRequestWithPayload method the extension modifies the leaf nodes value with the payload provided by Burp. This starts a chain reaction: the node notifies its parent about the change, then the parent modifies and re-encodes itself accordingly, and so on, until we reach the root node.
+
+See our [blog post](https://blog.silentsignal.eu/2024/12/06/custom-decoder-for-burp/) for some more details!
 
 ## Implementing a new encoding
 
