@@ -21,7 +21,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install openjdk-21-jdk -y
-          sudo apt install apt install gradle -y      
+          sudo apt install gradle -y      
 
       - name: Create release
         env:
