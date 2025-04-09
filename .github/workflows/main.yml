@@ -17,14 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup build env
-        run: |
-          sudo apt update
-          sudo apt install openjdk-21-jdk -y
-          sudo apt install gradle -y
+      - name: Seup java env
+        uses: actions/setup-java@v4
+        with:
+          distribution: ''
+          java-version: '21jetbrains'
+          cache: 'gradle'
 
-      - name: Build
-        run: ./gradlew build
+      - name: build
+        run: ./gradlew build  --no-daemon
 
       - name: Create release
         env:
