@@ -1,0 +1,41 @@
+name: Build app
+run-name: build and publish
+
+on:
+  push:
+    tags:
+      - "v*"
+  
+jobs:
+  prod-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java env
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'jetbrains'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: build
+        run: ./gradlew build  --no-daemon
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${tag#v}" 
+
+          gh release upload "$tag" \
+              build/libs/*
